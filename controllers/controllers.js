@@ -11,9 +11,9 @@ const getUserById = (req, res) => {
   console.log(requiredID);
   let studentId = students.find((student) => student.student_id === requiredID);
   if (studentId) {
-    res.status(200).send({ response: true, data: studentId });
+    res.status(200).json({ response: true, data: studentId });
   } else {
-    res.status(400).send({ response: false, error: "No student with such id" });
+    res.status(400).json({ response: false, error: "No student with such id" });
   }
 };
 
@@ -24,7 +24,7 @@ const getUserByLastNameOrMajor = (req, res) => {
   if (!lastname && !major) {
     return res
       .status(200)
-      .send({ response: true, message: "No student with such parameters" });
+      .json({ response: true, message: "No student with such parameters" });
   }
 
   const filteredStudents = students.filter((student) => {
@@ -43,10 +43,10 @@ const getUserByLastNameOrMajor = (req, res) => {
   if (filteredStudents.length === 0) {
     return res
       .status(400)
-      .send({ response: true, message: "No student with such parameters" });
+      .json({ response: true, message: "No student with such parameters" });
   }
 
-  res.status(200).send({ response: true, data: filteredStudents });
+  res.status(200).json({ response: true, data: filteredStudents });
 };
 
 const createUser = (req, res) => {
@@ -63,7 +63,7 @@ const createUser = (req, res) => {
   };
   students.push(newUser);
   console.log("Usuario añadido");
-  res.status(201).send({ response: true, data: newUser });
+  res.status(201).json({ response: true, data: newUser });
 };
 
 const replaceUser = (req, res) => {
@@ -87,9 +87,9 @@ const replaceUser = (req, res) => {
       gpa,
     };
 
-    res.status(200).send({ response: true, data: students[studentIndex] });
+    res.status(200).json({ response: true, data: students[studentIndex] });
   } else {
-    res.status(404).send("No student with such id");
+    res.status(404).json("No student with such id");
   }
 };
 
@@ -103,9 +103,9 @@ const updateUser = (req, res) => {
 
   if (studentIndex !== -1) {
     Object.assign(students[studentIndex], updatedFields);
-    res.status(200).send({ response: true, data: students[studentIndex] });
+    res.status(200).json({ response: true, data: students[studentIndex] });
   } else {
-    res.status(404).send("No student with such id");
+    res.status(404).json("No student with such id");
   }
 };
 
@@ -117,9 +117,9 @@ const deleteUser = (req, res) => {
 
   if (studentIndex !== -1) {
     const deletedStudent = students.splice(studentIndex, 1)[0];
-    res.status(200).send(deletedStudent);
+    res.status(200).json(deletedStudent);
   } else {
-    res.status(404).send("No student with such id");
+    res.status(404).json("No student with such id");
   }
 };
 
